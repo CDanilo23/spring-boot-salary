@@ -29,6 +29,10 @@ public class SalaryServiceImpl implements ISalaryService{
 	private String months;
 	
 
+	/**
+	 * Retrive all info of employees from azure resource
+	 * Convert all those data to local DTO
+	 */
 	@Override
 	public List<EmployeeDTO> findAll() {
 		
@@ -36,12 +40,19 @@ public class SalaryServiceImpl implements ISalaryService{
 		
 		return calculateAnualSalary(employees);
 	}
-
+	
+	/**
+	 * Retrive all info of specific employee by id from azure resource 
+	 */
 	@Override
 	public EmployeeDTO findById(int id) {
 		return Optional.ofNullable(findAll().stream().filter(p -> p.getId() == id).collect(Collectors.toList()).get(0)).orElse(null);
 	}
 	
+	/**
+	 * calculate the salary throught the algorithm given
+	 * return a list of employees with the data done
+	 * */
 	private List<EmployeeDTO> calculateAnualSalary(List<EmployeeDTO> employees) {
 		
 		employees.stream().forEach(emp -> {
